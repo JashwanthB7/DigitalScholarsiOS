@@ -1,0 +1,181 @@
+import SwiftUI
+
+
+struct ContentView: View {
+    @State private var animateButton = false
+
+    var body: some View {
+        ZStack {
+            // Gradient background
+            LinearGradient(gradient: Gradient(colors: [Color(red: 0.64, green: 0.85, blue: 0.96), Color(red: 0.73, green: 0.89, blue: 0.77)]),
+                           startPoint: .topLeading,
+                           endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all)
+            
+            VStack {
+                // Welcome label
+                Text("Welcome to Mental Health App")
+                    .font(.system(size: 24, weight: .medium))
+                    .foregroundColor(Color(red: 1000, green: 1000, blue: 0.85))
+                    .padding(.bottom, 40)
+                
+                // Get Started button
+                Button(action: {
+                    // Action for the button
+                }) {
+                    Text("Get Started")
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color(red: 0.73, green: 0.89, blue: 0.77))
+                        .cornerRadius(10)
+                        .scaleEffect(animateButton ? 1.05 : 1.0)
+                        .animation(Animation.easeInOut(duration: 1.5).repeatForever(autoreverses: true), value: animateButton)
+                        .onAppear {
+                            self.animateButton.toggle()
+                        }
+                }
+            }
+        }
+    }
+}
+
+
+struct WelcomeView: View {
+    var body: some View {
+        NavigationView {
+            ZStack {
+                // Gradient background
+                LinearGradient(gradient: Gradient(colors: [Color(red: 0.64, green: 0.85, blue: 0.96), Color(red: 0.73, green: 0.89, blue: 0.77)]),
+                               startPoint: .topLeading,
+                               endPoint: .bottomTrailing)
+                    .edgesIgnoringSafeArea(.all)
+                
+                VStack {
+                    // Welcome label
+                    Text("Welcome to Your Safe Space")
+                        .font(.system(size: 24, weight: .medium))
+                        .foregroundColor(Color(red: 0.97, green: 0.85, blue: 0.85))
+                        .padding(.bottom, 40)
+                    
+                    // Get Started button with navigation link
+                    NavigationLink(destination: MainNavigationView()) {
+                        Text("Get Started")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color(red: 0.73, green: 0.89, blue: 0.77))
+                            .cornerRadius(10)
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct MainNavigationView: View {
+    var body: some View {
+        VStack {
+            Text("Main Navigation Screen")
+                .font(.system(size: 24, weight: .medium))
+                .padding()
+            
+            // Example navigation links
+            NavigationLink(destination: SectionView(sectionName: "Journal")) {
+                Text("Journal")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                    .padding(.bottom, 10)
+            }
+            
+            NavigationLink(destination: SectionView(sectionName: "Meditation")) {
+                Text("Meditation")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.green)
+                    .cornerRadius(10)
+                    .padding(.bottom, 10)
+            }
+            
+            NavigationLink(destination: SectionView(sectionName: "Resources")) {
+                Text("Resources")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.purple)
+                    .cornerRadius(10)
+            }
+        }
+        .navigationBarTitle("Main Menu", displayMode: .inline)
+    }
+}
+
+
+
+
+struct SectionView: View {
+    var sectionName: String
+    
+    var body: some View {
+        VStack {
+            Text(sectionName)
+                .font(.system(size: 24, weight: .medium))
+                .padding()
+            
+            Spacer()
+        }
+        .navigationBarTitle(sectionName, displayMode: .inline)
+    }
+}
+
+struct SectionView_Previews: PreviewProvider {
+    static var previews: some View {
+        SectionView(sectionName: "Example Section")
+    }
+}
+
+
+
+
+
+
+
+
+struct MainNavigationView_Previews: PreviewProvider {
+    static var previews: some View {
+        MainNavigationView()
+    }
+}
+
+struct WelcomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        WelcomeView()
+    }
+}
+
+
+
+
+
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+
+
+
+@main
+struct YourApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
